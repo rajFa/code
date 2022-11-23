@@ -1,0 +1,300 @@
+//fibo recursive 
+import java.util.Scanner;
+class HelloWorld 
+{
+    public static int fib(int n)
+    {
+        if (n <= 1) return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+    public static void  main(String args[])
+    {
+	    Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        for (int i = 0; i < N; i++) 
+        {
+            System.out.print(fib(i) + " ");
+        }
+    }
+}
+//fibo with iterative
+import java.util.Scanner;
+class HelloWorld 
+{
+    public static void  main(String args[])
+    {
+	    Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int counter=0;
+        int a=0;
+        int b=1;
+        while(counter<=N)
+        {
+            int c=a;
+            a=b;
+            b=c+a;
+            System.out.print(c+" ");
+            counter++;
+        }
+    }
+}
+
+
+//HuffmanNode
+
+
+import java.util.PriorityQueue;
+import java.util.Comparator;
+class HuffmanNode {
+  int data;
+  HuffmanNode left;  HuffmanNode right;
+}
+ public class MyClass {
+     
+      public static void printCode(HuffmanNode root, String s) {
+        if (root.left == null && root.right == null && Character.isLetter(root.c)) {
+          System.out.println(root.c + "->" + s);
+          return;
+        }
+        printCode(root.left, s + "0");
+        printCode(root.right, s + "1");
+      }
+     public static void main(String[] args) {
+        int n = 4;
+        char[] charArray = { 'A', 'B', 'C', 'D' };
+        int[] charfreq = { 5, 1, 6, 3 };
+        PriorityQueue<HuffmanNode> q = new PriorityQueue<HuffmanNode>(n, new ImplementComparator());
+        for (int i = 0; i < n; i++) {
+          HuffmanNode hn = new HuffmanNode();
+          hn.c = charArray[i];
+          hn.data = charfreq[i];
+          hn.left = null; hn.right = null;
+          q.add(hn);
+        }
+        HuffmanNode root = null;
+        while (q.size() > 1) {
+          HuffmanNode x = q.peek();
+          q.poll();
+          HuffmanNode y = q.peek();
+          q.poll();
+          HuffmanNode z = new HuffmanNode();
+          z.data = x.data + y.data;
+          z.c = '*';
+          z.left = x;
+          z.right = y;
+          root = z;
+          q.add(z);
+        }
+        printCode(root, "");
+  }
+}
+class ImplementComparator implements Comparator<HuffmanNode> {
+  public int compare(HuffmanNode x, HuffmanNode y) {
+    return x.data- y.data;
+  }
+}
+//01 knapsack
+
+import java.util.*;
+ 
+class knapsack{
+  static int knapSack(int W, int wt[], int val[], int n)
+  {
+    // making and initializing dp array
+    int []dp = new int[W + 1];
+ 
+ 
+    for (int i = 1; i < n + 1; i++) {
+      for (int w = W; w >= 0; w--) {
+ 
+        if (wt[i - 1] <= w)
+           
+          // finding the maximum value
+          dp[w] = Math.max(dp[w],
+                           dp[w - wt[i - 1]] + val[i - 1]);
+      }
+    }
+    return dp[W]; // returning the maximum value of knapsack
+  }
+   
+  // Driver code
+  public static void main(String[] args)
+  {
+    int val[] = { 60, 100, 120 };
+    int wt[] = { 10, 20, 30 };
+    int W = 50;
+    int n = val.length;
+    System.out.print(knapSack(W, wt, val, n));
+  }
+}
+
+
+fractional knapsack
+// Java program to solve fractional Knapsack Problem
+
+import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
+
+// Greedy approach
+class FractionalKnapSack {
+	
+	// Function to get maximum value
+	private static double getMaxValue(ItemValue[] arr,
+									int capacity)
+	{
+		// Sorting items by value/weight ratio;
+		Arrays.sort(arr, new Comparator<ItemValue>() {
+			@Override
+			public int compare(ItemValue item1,
+							ItemValue item2)
+			{
+				double cpr1
+					= new Double((double)item1.value
+								/ (double)item1.weight);
+				double cpr2
+					= new Double((double)item2.value
+								/ (double)item2.weight);
+
+				if (cpr1 < cpr2)
+					return 1;
+				else
+					return -1;
+			}
+		});
+
+		double totalValue = 0d;
+
+		for (ItemValue i : arr) {
+
+			int curWt = (int)i.weight;
+			int curVal = (int)i.value;
+
+			if (capacity - curWt >= 0) {
+
+				// this weight can be picked while
+				capacity = capacity - curWt;
+				totalValue += curVal;
+			}
+			else {
+
+				// Item cant be picked whole
+				double fraction
+					= ((double)capacity / (double)curWt);
+				totalValue += (curVal * fraction);
+				capacity
+					= (int)(capacity - (curWt * fraction));
+				break;
+			}
+		}
+
+		return totalValue;
+	}
+
+	// Item value class
+	static class ItemValue {
+
+		int value, weight;
+
+		// Item value function
+		public ItemValue(int val, int wt)
+		{
+			this.weight = wt;
+			this.value = val;
+		}
+	}
+
+	// Driver code
+	public static void main(String[] args)
+	{
+
+		ItemValue[] arr = { new ItemValue(60, 10),
+							new ItemValue(100, 20),
+							new ItemValue(120, 30) };
+
+		int capacity = 50;
+
+		double maxValue = getMaxValue(arr, capacity);
+
+		// Function call
+		System.out.println(maxValue);
+	}
+}
+
+
+
+//n queens
+
+
+public class Main {
+    static final int N = 4;
+
+   // print the final solution matrix 
+    static void printSolution(int board[][])
+    {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++)
+                System.out.print(" " + board[i][j] + " ");
+            System.out.println();
+        }
+    }
+
+    // function to check whether the position is safe or not 
+    static boolean isSafe(int board[][], int row, int col)
+    {
+        int i, j;
+        for (i = 0; i < col; i++)
+            if (board[row][i] == 1)
+                return false;
+
+       
+        for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
+            if (board[i][j] == 1)
+                return false;
+            
+        for (i = row, j = col; j >= 0 && i < N; i++, j--)
+            if (board[i][j] == 1)
+                return false;
+
+        return true;
+    }
+
+    // The function that solves the problem using backtracking 
+    public static boolean solveNQueen(int board[][], int col)
+    {
+        if (col >= N)
+            return true;
+
+        for (int i = 0; i < N; i++) {
+            //if it is safe to place the queen at position i,col -> place it
+            if (isSafe(board, i, col)) {
+                board[i][col] = 1;
+
+                if (solveNQueen(board, col + 1))
+                    return true;
+
+                //backtrack if the above condition is false
+                board[i][col] = 0;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String args[])
+    {
+        int board[][] = { { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 } };
+
+        if (!solveNQueen(board, 0)) {
+            System.out.print("Solution does not exist");
+            return;
+        }
+
+        printSolution(board);
+       
+    }
+} 
+
+

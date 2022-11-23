@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class fibo{
+	public static void fib(int n,int a,int b)
+	{
+		int c;
+		if(n!=0){
+			c=a+b;
+			b=a;
+			a=c;
+			n-=1;
+			System.out.println(c);
+			fib(n,a,b);
+			
+		}
+	}
+	public static void main(String []args)
+	{
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter numbers for fibonacci series");
+	int n=sc.nextInt();
+	int a,b;
+	a=0;b=1;
+	fib(n,a,b);
+	}
+}

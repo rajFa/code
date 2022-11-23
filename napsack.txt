@@ -1,0 +1,24 @@
+class item:
+    def __init__(self,value,weight):
+        self.value=value
+        self.weight=weight
+        
+
+def fnap(W,arr):
+    arr.sort(key=lambda x:(x.value/x.weight),reverse=True)
+    res=0.0
+    for item in arr:
+        if item.weight<=W:
+            W-=item.weight
+            res+=item.value
+            
+        else:
+            res+=item.value * W/item.weight
+            break
+    return res
+    
+W = 20
+array = [item(25, 18), item(24, 15), item(15, 10)]
+result = fnap(W, array)
+print ('Maximum value we can obtain = ',result)
+    
